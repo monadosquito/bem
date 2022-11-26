@@ -1,0 +1,10 @@
+{
+    nixpkgs
+        =
+        (import
+            (fetchTarball
+                 https://github.com/dmjio/miso/archive/bb230192164f0532660aadb4175460740abfa2a2.tar.gz
+            )
+            {}
+        ).pkgs;
+}
