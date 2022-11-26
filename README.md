@@ -26,17 +26,17 @@ and optional *modifiers*.
 - A **class** is a generated string
 of a combination
 of some decorated *entities*.
-- A **class generator** is a [function](https://monadosquito.github.io/bem/Bem-Cls-Gen-Gen.html#v:genBlk)
-from a defined
-by a *scheme* combination
-of some *entities*
-into a *class*.
+- A **class generator** is a configured [`Gens` field-function](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#t:Gens),
+using custom decorations,
+or a [function](https://monadosquito.github.io/bem/Bem-Cls-Gen-Gen.html#v:genBlk),
+using the default decorations,
+from a combination of some *entities* from a *scheme* into a *class*.
 - A **scheme** is all types of *entities* together.
 - An **entity part** is a capitalised substring of a shown *entity*.
 
 ## Notes
 
-- A generated *class* is decorated according to [Table 1](#table-1).
+- A generated *class* is decorated according to a [configuration](#table-1).
 - A *scheme* defines how and which *entities* can be combined.
 - Absence of any *elements*
 or *modifiers* can be represented by any other appropriate type
@@ -55,6 +55,10 @@ then it is interpreted as boolean,
 trimming its fields.
 - If a value of a *non-boolean modifier* is not nullary,
 then all its fields are trimmed.
+- In order that the [regular `Gens` field-functions](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#t:Gens)
+or the [utility `Gens` field-functions](https://monadosquito.github.io/bem/Bem-Utl-Utl.html#t:Gens),
+using custom decorations can be used,
+they must be configured. ([?](#configure-class-generators))
 
 ## Hints
 
@@ -64,8 +68,9 @@ that it belongs to.
 ## Stipulations
 
 - 'Intr' stands for internal/intricate.
-- All the examples are decorated according to [Table 1](#table-1).
-- The decorations in [Table 1](#table-1) are described
+- All the examples are decorated according to the [default settings](#table-1).
+- The default settings are described in [Table 1](#table-1).
+- The settings in [Table 1](#table-1) are described
 regarding an *entity* as shown,
 that is,
 as a string.
@@ -251,7 +256,11 @@ to the `true` value.
 # Usage flow
 
 1. Define a *scheme*. ([?](#define-scheme))
-2. Generate *classes*. ([?](#generate-classes))
+2. Generate *classes*
+with the [default decorations](#table-1) ([?](#configure-class-generators))
+    1. or configure the [*class generators*](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#t:Gens) ([?](#configure-class-generators))
+    2. and generate *classes* with [custom decorations](#table-1).
+    ([?](#generate-classes-with-custom-decorations))
 
 # Define scheme
 
@@ -356,9 +365,43 @@ to denote absent *elements*.
 - The [`NoMod` empty type](https://monadosquito.github.io/bem/Bem-Utl-Utl.html#t:NoMod) can be used
 to denote absent *elements*/*modifiers*.
 
-# Generate classes
+# Configure class generators
 
-Apply a corresponding *class generator*
+Apply the [`init` function](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#v:init)
+to an appropriate [`Cfg` record](https://monadosquito.github.io/bem/Bem-Cfg-Cfg.html#t:Cfg)
+assignining the result a name
+in order that
+the resulting configured [*class generators*](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#t:Gens) can be referenced
+with it.
+
+## Example
+
+`src/Bem/Init.hs`
+
+```haskell
+module Bem.Init
+    ( module Bem.Init
+    , module Bem.Scheme
+    ) where
+
+
+import Bem.Scheme
+
+import Bem.Cfg.Cfg
+import qualified Bem.Gen.Cfg as CfgGen
+
+
+gens :: CfgGen.Gens
+gens = CfgGen.init CfgGen.Cfg { CfgGen._elemSep = "__"
+                              , CfgGen._modSep = "_"
+                              , CfgGen._partSep = "-"
+                              , CfgGen._partsAreCptled = False
+                              }
+```
+
+# Generate classes with default decorations
+
+Apply a corresponding [*class generator*](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#t:Gens)
 to a defined
 by a *scheme* combination
 of some *entities*.
@@ -375,6 +418,38 @@ import Bem.Bem
 
 main :: IO ()
 main = print $ genBlk Btn [Btn_Dark] Search Search_Btn [SearchBtn_Size Big]
+```
+
+## Notes
+
+- The example
+prints
+the `"btn btn_dark search__btn search__btn_size_big"` string.
+
+# Generate classes with custom decorations
+
+Apply a corresponding configured [*class generator*](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#t:Gens),
+referencing its [`Gens` record](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#t:Gens)
+with the name
+assigned during [configuring](#configure-class-generators),
+to a combination
+of some *entities*
+from a *scheme*.
+
+## Example
+
+`src/Main.hs`
+
+```haskell
+import Bem.Init
+
+import qualified Bem.Bem as Bem
+
+
+main :: IO ()
+main = print $ Bem._genBlk gens
+                   Btn [Btn_Dark] Search Search_Btn [SearchBtn_Size Big]
+
 ```
 
 ## Notes
@@ -496,15 +571,34 @@ is a high-level module
 either exporting or reexporting high-level API beneath itself
 except for the modules
 ending in the `Utl.Intr`/`Utl.Utl` suffix.
+- The module
+ending in the `<A>.<B>` suffix
+means
+that the module
+ending in the `<B>.<B>` suffix
+extends the module
+ending in the `<A>.<A>` suffix
+in the sense of its own purpose.
 - The module ending in the `<A>.Intr` suffix exports low-level API.
 - The module ending in the `Utl.Intr`/`Utl.Utl` suffix exports extra utilities.
+
+#### Haskell module extending example
+
+The `Bem.Gen.Cfg` module name means
+that the `Bem.Cfg.Cfg` module extends the `Bem.Gen.Gen` module,
+introducing the ability to be configurable,
+where
+- the `Bem.Cfg.Cfg` module introduces the notion of configuration
+- and the `Bem.Gen.Gen` module generates *classes* with the default decorations.
 
 ### Haskell order
 
 - Items of a [source code group](#source-code-groups) are ordered
 in the ASCII order.
 - [Source code groups](#source-code-groups) are ordered
-from the more abstract to the less abstract.
+from the more abstract to the less abstract,
+- `qualified` [`import`s](#source-code-groups) are placed
+beneath non-`qualified` ones.
 
 #### Haskell groups
 
@@ -518,8 +612,10 @@ from the more abstract to the less abstract.
 
 ## Scopes
 
-if changes are made inside a `src/Bem/<scope>/<scope>.hs` path,
-then they are made within a *\<scope\>*.
+if changes are made
+inside a `src/Bem/<scope>/<scope>.hs`/`src/Bem/<A>/<scope>.hs` path,
+then they are made
+within a *\<scope\>*.
 
 ## Notes
 
@@ -538,18 +634,19 @@ after it and before the next one and ordered in the ASCII order.
 
 # Defined scopes
 
-- 'gen'
+- 'cfg'
+- 'cls'
 - 'utl'
 
 ---
 
 ### Table 1
 
-*Class* decorations
+Available settings
 
-|Decoration                                                                                       |Value  |
-|-------------------------------------------------------------------------------------------------|-------|
-|a separator between a *block* and its *element*                                                  |`"__"` |
-|a separator between a non-*modififer* *entity*, a *modifier*, and an optional value of the latter|`"_"`  |
-|a separator between *entity parts*                                                               |`"-"`  |
-|whether to capitalize *entity parts*                                                             |`False`|
+|Setting          |Description                                                                                      |Default value|
+|-----------------|-------------------------------------------------------------------------------------------------|-------------|
+|`_elemSep`       |a separator between a *block* and its *element*                                                  |`"__"`       |
+|`_modSep`        |a separator between a non-*modififer* *entity*, a *modifier*, and an optional value of the latter|`"_"`        |
+|`_partSep`       |a separator between *entity parts*                                                               |`"-"`        |
+|`_partsAreCptled`|whether to capitalize *entity parts*                                                             |`False`      |

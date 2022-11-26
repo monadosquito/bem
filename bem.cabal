@@ -19,6 +19,8 @@ library
         , Bem.Cls.Gen.Gen
         , Bem.Utl.Intr
         , Bem.Utl.Utl
+        , Bem.Cfg.Cfg
+        , Bem.Cls.Gen.Cfg
         , Bem.Cls.Gen.Intr
     ghc-options: -Wall
     hs-source-dirs: src
@@ -27,3 +29,4 @@ library
         , GADTs
         , KindSignatures
         , RankNTypes
+        , RecordWildCards

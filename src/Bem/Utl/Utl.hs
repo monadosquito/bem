@@ -10,9 +10,11 @@ module Bem.Utl.Utl where
 import Bem.Cls.Gen.Gen
 import Bem.Utl.Intr
 
+import Control.Monad.Reader
 import Data.Kind
 
-import Bem.Cls.Gen.Intr
+import Bem.Cfg.Cfg
+import qualified Bem.Cls.Gen.Intr as IntrGen
 
 
 -- | Denote absent elements.
@@ -42,4 +44,10 @@ genNoModsElem prntBlk elem' = genElem prntBlk elem' []
 
 -- | Decorate a single block.
 decorRoot :: (Show (b e m)) => b (e :: Type -> Type) m -> Class
-decorRoot = decor . Blk
+decorRoot = (`runReader` defCfg) . (IntrGen.decor . IntrGen.Blk)
+  where
+    defCfg = Cfg { _elemSep = "__"
+                 , _modSep = "_"
+                 , _partSep = "-"
+                 , _partsAreCptled = False
+                 }
