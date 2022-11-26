@@ -12,17 +12,18 @@ import qualified Bem.Cls.Gen.Intr as IntrGen
 import Bem.Utl.Intr
 import Bem.Cfg.Cfg
 
-import Control.Monad.Reader
+import qualified Control.Monad.Reader as Rdr
 
 
 -- | Generate a class of a block and element along with their modifiers.
 genBlkElem :: FromBlkElem Class
 genBlkElem blk blkMods prntBlk elem' elemMods
     =
-    runReader (IntrGen.genBlk blk blkMods prntBlk elem' elemMods) defCfg
+    Rdr.runReader (IntrGen.genBlk blk blkMods prntBlk elem' elemMods)
+        $ fix defCfg
 
 -- | Generate a class of a element along with its modifiers.
 genElem :: FromFullElem b Class
 genElem prntBlk elem' elemMods
     =
-    runReader (IntrGen.genElem prntBlk elem' elemMods) defCfg
+    Rdr.runReader (IntrGen.genElem prntBlk elem' elemMods) $ fix defCfg

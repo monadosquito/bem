@@ -1,9 +1,22 @@
+{-# LANGUAGE NamedFieldPuns #-}
+
+
 {- |
 general configuration
 
 The settings are described regarding an entity as shown, that is, as a string.
 -}
-module Bem.Cfg.Cfg where
+module Bem.Cfg.Cfg
+           ( Cfg (..)
+           , FixedCfg
+           , Sep
+           , defCfg
+           , fix
+           , unfix
+           ) where
+
+
+import Data.Char
 
 
 -- | an entity part separator inside a class
@@ -28,7 +41,7 @@ data Cfg = Cfg {
                  -}
                , _partSep :: Sep
                  {- |
-                 whether to capitalize entity parts inside a class (False)
+                 whether to capitalise entity parts inside a class (False) 
                  -}
                , _partsAreCptled :: Bool
                }
@@ -41,3 +54,71 @@ defCfg = Cfg { _elemSep = "__"
              , _partSep = "-"
              , _partsAreCptled = False
              }
+
+
+{- |
+the safety wrapper around configuration
+whose value can only be created using the 'fix' function
+-}
+newtype FixedCfg = FixedCfg Cfg
+
+
+{- |
+If a particular combination of setting values is occuried,
+then some settings are defaulted back to avoid malformed custom configurations.
+-}
+fix :: Cfg -> FixedCfg
+fix
+    =
+    FixedCfg
+    . fixAllSepsIsEq
+    . fixElemSepAndNamePartSepIsEq
+    . fixElemSepAndModSepIsEq
+    . fixModSepAndNamePartSepIsEq
+    . fixNoSeptn
+  where
+    fixAllSepsIsEq cfg@Cfg { _elemSep = elemSep
+                           , _modSep = modSep
+                           , _partSep = namePartSep
+                           }
+        | elemSep == modSep && modSep == namePartSep
+        = cfg { _elemSep = _elemSep defCfg
+              , _modSep = _modSep defCfg
+              , _partSep = _partSep defCfg
+              }
+        | otherwise = cfg
+    fixElemSepAndModSepIsEq cfg@Cfg { _elemSep = elemSep
+                                    , _modSep = modSep
+                                    }
+        | elemSep == modSep = cfg { _elemSep = _elemSep defCfg
+                                  , _modSep = _modSep defCfg
+                                  }
+        | otherwise = cfg
+    fixElemSepAndNamePartSepIsEq cfg@Cfg { _elemSep = elemSep
+                                         , _partSep = namePartSep
+                                         }
+        | elemSep == namePartSep = cfg { _elemSep = _elemSep defCfg
+                                       , _partSep = _partSep defCfg
+                                       }
+        | otherwise = cfg
+    fixModSepAndNamePartSepIsEq cfg@Cfg { _modSep = modSep
+                                        , _partSep = namePartSep
+                                        }
+        | modSep == namePartSep = cfg { _modSep = _modSep defCfg
+                                      , _partSep = _partSep defCfg
+                                      }
+        | otherwise = cfg
+    fixNoSeptn cfg@Cfg { _partSep = partSep
+                       , _partsAreCptled
+                       }
+        | any isLetter partSep = defedCfg
+        | False <- _partsAreCptled
+        , null partSep = defedCfg
+        | otherwise = cfg
+      where
+        defedCfg = cfg { _partSep = _partSep defCfg
+                       }
+
+-- | Obtain an actual configuration after fixing it.
+unfix :: FixedCfg -> Cfg
+unfix (FixedCfg cfg) = cfg

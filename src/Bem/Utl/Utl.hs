@@ -9,9 +9,9 @@ module Bem.Utl.Utl where
 
 
 import qualified Bem.Cls.Gen.Gen as Gen
-import Bem.Utl.Intr
 import Bem.Cfg.Cfg
-import Control.Monad.Reader
+import Bem.Utl.Intr
+import qualified Control.Monad.Reader as Rdr
 import qualified Bem.Cls.Gen.Cfg as Cfg
 import qualified Bem.Cls.Gen.Intr as IntrGen
 
@@ -58,7 +58,7 @@ genNoModsElem prntBlk elem' = Gen.genElem prntBlk elem' []
 
 -- | Decorate a single block.
 decorSingleton :: (Show (b e m)) => b (e :: Type -> Type) m -> Class
-decorSingleton = (`runReader` defCfg) . (IntrGen.decor . IntrGen.Blk)
+decorSingleton = (`Rdr.runReader` (fix defCfg)) . (IntrGen.decor . IntrGen.Blk)
 
 -- | Initialise the utility configurable class generators with a configuration.
 init :: Cfg -> Gens
@@ -70,22 +70,27 @@ init cfg
                =
                \blk prntBlk elem' elemMods
                ->
-               runReader (IntrGen.genBlk blk [] prntBlk elem' elemMods) cfg
+               Rdr.runReader
+                   (IntrGen.genBlk blk [] prntBlk elem' elemMods)
+                   fixedCfg
          , _genNoElemModsBlk
                =
                \blk blkMods prntBlk elem'
                ->
-               runReader (IntrGen.genBlk blk blkMods prntBlk elem' []) cfg
+               Rdr.runReader
+                   (IntrGen.genBlk blk blkMods prntBlk elem' [])
+                   fixedCfg
          , _genNoModsBlk
                =
                \blk prntBlk elem'
                ->
-               runReader (IntrGen.genBlk blk [] prntBlk elem' []) cfg
+               Rdr.runReader (IntrGen.genBlk blk [] prntBlk elem' []) fixedCfg
          , _genNoModsElem
                =
                \prntBlk elem'
                ->
-               runReader (IntrGen.genElem prntBlk elem' []) cfg
+               Rdr.runReader (IntrGen.genElem prntBlk elem' []) fixedCfg
          }
   where
     Cfg.Gens {..} = Cfg.init cfg
+    fixedCfg = fix cfg

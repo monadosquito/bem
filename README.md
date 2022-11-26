@@ -362,6 +362,12 @@ gens :: Bem.Gens
 gens = Bem.init defCfg
 ```
 
+## Notes
+
+- If a particular combination of setting values is occuried,
+then some settings are defaulted back
+to avoid [malformed custom configurations](#table-2).
+
 ## Hints
 
 - Apply the [`init` function](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#v:init)
@@ -625,3 +631,14 @@ the available settings
 |`_modSep`        |a separator between a non-*modififer* *entity*, a *modifier*, and an optional value of the latter|`"_"`        |
 |`_partSep`       |a separator between *entity parts*                                                               |`"-"`        |
 |`_partsAreCptled`|whether to capitalize *entity parts*                                                             |`False`      |
+
+## Table 2
+
+the possible custom configuration malformations
+and corresponding [defaulted settings](#table-1)
+
+|Custom configuration malformation                                                                                                         |Defaulted settings |
+|------------------------------------------------------------------------------------------------------------------------------------------|-------------------|
+|There are letters in the value of the `_partSep` field.                                                                                   |`_partSep`         |
+|There are the same separators.                                                                                                            |the same separators|
+|There is no actual separation, that is, the value of the `_partSep` field is `""` and the value of the `_partsAreCptled` field is `False`.|`_partSep`         |

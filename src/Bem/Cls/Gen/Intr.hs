@@ -50,9 +50,9 @@ data Ent (isMod :: Bool) where
          Mod :: Show m => Ent 'False -> m -> Ent 'True
 
 
-adopt :: FromElem b (Reader Cfg FullStredElem)
+adopt :: FromElem b (Reader FixedCfg FullStredElem)
 adopt blk elem' = do
-    Cfg {..} <- ask
+    Cfg {..} <- unfix <$> ask
     decoredBlk <- decor $ Blk blk
     decoredElem <- decor $ Elem blk elem'
     return $ decoredBlk ++ _elemSep ++ decoredElem
@@ -62,9 +62,9 @@ Decorate an entity,
 wrapped into a corresponding 'Ent' data constructor,
 using custom decorations
 -}
-decor :: Ent isMod -> Reader Cfg StredEnt
+decor :: Ent isMod -> Reader FixedCfg StredEnt
 decor ent = do
-    Cfg {..} <- ask
+    Cfg {..} <- unfix <$> ask
     let
         sep :: [StredEntPart] -> [String]
         sep = intersperse _partSep
@@ -107,7 +107,7 @@ decor ent = do
 Generate a class of a block and element with their modifiers,
 using custom decorations.
 -}
-genBlk :: FromBlkElem (Reader Cfg Class)
+genBlk :: FromBlkElem (Reader FixedCfg Class)
 genBlk blk blkMods prntBlk elem' elemMods
     = do
     decoredBlk <- str $ Blk blk
@@ -121,7 +121,7 @@ genBlk blk blkMods prntBlk elem' elemMods
         ++ decoredFullElem
 
 -- | Generate a class of a element with its modifiers, using custom decorations.
-genElem :: FromFullElem b (Reader Cfg Class)
+genElem :: FromFullElem b (Reader FixedCfg Class)
 genElem prntBlk elem' elemMods
     = do
     adoptedElem <- str $ Elem prntBlk elem'
@@ -135,9 +135,9 @@ genElem prntBlk elem' elemMods
 the topmost helper function gathering all the other functions
 to stringify a given wrapped entity
 -}
-str :: Ent isMod -> Reader Cfg FullStredEnt
+str :: Ent isMod -> Reader FixedCfg FullStredEnt
 str ent = do
-    Cfg {..} <- ask
+    Cfg {..} <- unfix <$> ask
     case ent of
         Elem blk elem' -> adopt blk elem'
         blk@(Blk _) -> decor blk 
