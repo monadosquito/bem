@@ -8,8 +8,11 @@ using the default decorations.
 module Bem.Cls.Gen.Gen where
 
 
-import Bem.Cls.Gen.Intr
+import qualified Bem.Cls.Gen.Intr as IntrGen
 import Bem.Utl.Intr
+import Bem.Cfg.Cfg
+
+import Control.Monad.Reader
 
 
 -- | Generate a class of a block and element along with their modifiers.
@@ -22,9 +25,18 @@ genBlkElem blk blkMods prntBlk elem' elemMods
     ++ " "
     ++ decoredFullElem
   where
-    decoredBlk = str $ Blk blk
-    decoredBlkMods = map (str . Mod (Blk blk)) blkMods 
+    decoredBlk = runReader (IntrGen.str $ IntrGen.Blk blk) defCfg
+    decoredBlkMods
+        =
+        runReader
+            (mapM (IntrGen.str . IntrGen.Mod (IntrGen.Blk blk)) blkMods)
+            defCfg
     decoredFullElem = genElem prntBlk elem' elemMods
+    defCfg = Cfg { _elemSep = "__"
+                 , _modSep = "_"
+                 , _partSep = "-"
+                 , _partsAreCptled = False
+                 }
 
 -- | Generate a class of a element along with its modifiers.
 genElem :: FromFullElem b Class
@@ -34,5 +46,17 @@ genElem prntBlk elem' elemMods
     ++ (if null decoredElemMods then "" else " ")
     ++ unwords decoredElemMods
   where
-    adoptedElem = str $ Elem prntBlk elem'
-    decoredElemMods = map (str . Mod (Elem prntBlk elem')) elemMods
+    adoptedElem = runReader (IntrGen.str $ IntrGen.Elem prntBlk elem') defCfg
+    decoredElemMods
+        =
+        runReader
+            (mapM
+                 (IntrGen.str . IntrGen.Mod (IntrGen.Elem prntBlk elem'))
+                 elemMods
+            )
+            defCfg
+    defCfg = Cfg { _elemSep = "__"
+                 , _modSep = "_"
+                 , _partSep = "-"
+                 , _partsAreCptled = False
+                 }

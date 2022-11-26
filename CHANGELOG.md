@@ -4,6 +4,13 @@
 
 ## Added
 
+- The [*class* decorations](https://github.com/monadosquito/bem#table-1) can be configured
+by applying the [`init` function](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html)
+to an appropriate [`Cfg` record](https://monadosquito.github.io/bem/Bem-Cfg-Cfg.html)
+and assigning the resulting [`Gens` record](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html)
+of configured [*class* generators](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html) a name
+in order that the [*class* generators](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html) can be referenced
+with it.
 - The [partial *class* generators](https://monadosquito.github.io/bem/Bem-Utl-Utl.html) can be used
 instead
 of the [regular ones](https://monadosquito.github.io/bem/Bem-Gen-Gen.html)
