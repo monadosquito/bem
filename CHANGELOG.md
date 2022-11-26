@@ -1,7 +1,12 @@
 # [Unreleased]
 
+# [1.1.0] - 2022-12-30
+
 ## Added
 
+- If a particular combination of [decorations](https://github.com/monadosquito/bem/#table-1) is occuried,
+then some of them are defaulted back
+to avoid [malformed custom decorations](https://github.com/monadosquito/bem/#table-2).
 - The [`defCfg` value](https://monadosquito.github.io/bem/Bem-Cfg-Cfg.html) can be passed
 into the [regular `init` function](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html)
 or the [utility `init` function](https://monadosquito.github.io/bem/Bem-Utl-Utl.html)

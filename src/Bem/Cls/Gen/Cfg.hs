@@ -8,11 +8,11 @@ with custom decorations.
 module Bem.Cls.Gen.Cfg where
 
 
-import Bem.Cfg.Cfg
+import Bem.Cfg.Intr
 import Bem.Cls.Gen.Intr
 import Bem.Utl.Intr
 
-import Control.Monad.Reader
+import qualified Control.Monad.Reader as Rdr
 
 
 -- | the configurable class generators
@@ -31,10 +31,14 @@ init cfg
                =
                \blk blkMods prntBlk elem' elemMods
                ->
-               runReader (genBlk blk blkMods prntBlk elem' elemMods) cfg
+               Rdr.runReader
+                   (genBlk blk blkMods prntBlk elem' elemMods)
+                   fixedCfg
          , _genElem
                =
                \prntBlk elem' elemMods
                ->
-               runReader (genElem prntBlk elem' elemMods) cfg
+               Rdr.runReader (genElem prntBlk elem' elemMods) fixedCfg
          }
+  where
+    fixedCfg = fix cfg

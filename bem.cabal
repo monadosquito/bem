@@ -31,3 +31,4 @@ library
         , KindSignatures
         , RankNTypes
         , RecordWildCards
+        , NamedFieldPuns
