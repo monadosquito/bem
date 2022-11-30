@@ -396,15 +396,15 @@ import qualified Bem.Gen.Cfg as CfgGen
 
 
 gens :: CfgGen.Gens
-gens = CfgGen.init CfgGen.Cfg { CfgGen._elemSep = "__"
-                              , CfgGen._modSep = "_"
-                              , CfgGen._partSep = "-"
-                              , CfgGen._partsAreCptled = False
-                              }
+gens = CfgGen.init defCfg
 ```
 
 ## Hints
 
+- Apply the [`init` function](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#v:init)
+to the [`defCfg` value](https://monadosquito.github.io/bem/Bem-Cfg-Cfg.html#v:defCfg)
+to avoid setting up an entire [`Cfg` record](https://monadosquito.github.io/bem/Bem-Cfg-Cfg.html)
+using some defaults.
 - In order that the resulting [`Gens` record](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#t:Gens) contains the [utility *class generators*](https://monadosquito.github.io/bem/Bem-Utl-Utl.html#v:init),
 make it
 using the [utility `init` function](https://monadosquito.github.io/bem/Bem-Utl-Utl.html#v:init)
