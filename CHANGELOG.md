@@ -4,6 +4,11 @@
 
 ## Added
 
+- The [`defCfg` value](https://monadosquito.github.io/bem/Bem-Cfg-Cfg.html) can be passed
+into the [regular `init` function](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html)
+or the [utility `init` function](https://monadosquito.github.io/bem/Bem-Utl-Utl.html)
+to avoid setting up an entire [`Cfg` record](https://monadosquito.github.io/bem/Bem-Cfg-Cfg.html)
+using some defaults.
 - The [utility `Gens` record](https://monadosquito.github.io/bem/Bem-Utl-Utl.html)
 and the [utility `init` function](https://monadosquito.github.io/bem/Bem-Utl-Utl.html) can be used
 in place of the regular ones
