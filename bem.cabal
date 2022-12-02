@@ -13,7 +13,16 @@ version: 1.0.0
 library
     build-depends: base, mtl, split
     default-language: Haskell2010
-    exposed-modules: Bem.Bem, Bem.Cls.Cls, Bem.Cls.Gen.Gen, Bem.Utl.Intr
+    exposed-modules:
+        Bem.Bem
+        , Bem.Cls.Cls
+        , Bem.Cls.Gen.Gen
+        , Bem.Utl.Intr
+        , Bem.Utl.Utl
     ghc-options: -Wall
     hs-source-dirs: src
-    other-extensions: DataKinds, GADTs, KindSignatures, RankNTypes
+    other-extensions:
+        DataKinds
+        , GADTs
+        , KindSignatures
+        , RankNTypes

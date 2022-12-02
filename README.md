@@ -349,6 +349,13 @@ that it is of the medium size,
 which is set directly on it.
 - Derive a `Show` instance for a GADT using the `StandaloneDeriving` extension.
 
+## Hints
+    
+- The [`NoElem` empty type constructor](https://monadosquito.github.io/bem/Bem-Utl-Utl.html#t:NoElem) can be used
+to denote absent *elements*.
+- The [`NoMod` empty type](https://monadosquito.github.io/bem/Bem-Utl-Utl.html#t:NoMod) can be used
+to denote absent *elements*/*modifiers*.
+
 # Generate classes
 
 Apply a corresponding *class generator*
@@ -473,8 +480,9 @@ ending in the `<A>.<A>` suffix
 is a high-level module
 either exporting or reexporting high-level API beneath itself
 except for the modules
-ending in the `Utl.Intr` suffix.
+ending in the `Utl.Intr`/`Utl.Utl` suffix.
 - The module ending in the `<A>.Intr` suffix exports low-level API.
+- The module ending in the `Utl.Intr`/`Utl.Utl` suffix exports extra utilities.
 
 ### Haskell order
 
@@ -502,7 +510,8 @@ then they are made within a *\<scope\>*.
 
 - A [part of speech](#parts-of-speech) is moved onto its next line
 along with the [conjunction](#parts-of-speech) introducing it.
-- All the [utilities](https://monadosquito.github.io/bem/Bem-Utl-Intr.html) are optional,
+- All the [high-level utilities](https://monadosquito.github.io/bem/Bem-Utl-Utl.html)
+and the [low-level utilities](https://monadosquito.github.io/bem/Bem-Utl-Intr.html) are optional,
 that is,
 all the features work without them.
 - An image or a table has its own two-level heading of its type and its number.
@@ -512,7 +521,7 @@ from the more abstract to the less abstract.
 
 # Defined scopes
 
-- 'cls'
+- 'gen'
 - 'utl'
 
 ---
