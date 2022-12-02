@@ -235,7 +235,6 @@ to the `true` value.
 `src/Bem/Scheme.hs`
 <!-- 'src/Bem/Scheme.hs' -->
 ```hs
-{-# LANGUAGE EmptyDataDeriving #-}
 {-# LANGUAGE GADTs #-}
 {-# LANGUAGE KindSignatures #-}
 {-# LANGUAGE StandaloneDeriving #-}
@@ -244,6 +243,7 @@ to the `true` value.
 module Bem.Scheme where
 
 
+import Bem.Utl.Utl
 import Data.Kind
 
 
@@ -264,10 +264,6 @@ data HeaderElem m where
          Header_Logo :: HeaderElem NoMod
          Header_Search :: HeaderElem NoMod
 deriving instance Show (HeaderElem m)
-
-data NoElem m deriving Show
-
-data NoMod deriving Show
 
 data RootElem m where
          Root_Header :: RootElem NoMod
@@ -320,6 +316,13 @@ which is set directly on it.
 that it is of the medium size,
 which is set directly on it.
 - Derive a `Show` instance for a GADT using the `StandaloneDeriving` extension.
+
+## Hints
+    
+- The [`NoElem` empty type constructor](https://monadosquito.github.io/bem/Bem-Utl-Utl.html#t:NoElem) can be used
+to denote absent *elements*.
+- The [`NoMod` empty type](https://monadosquito.github.io/bem/Bem-Utl-Utl.html#t:NoMod) can be used
+to denote absent *elements*/*modifiers*.
 
 # Generate classes
 
@@ -444,11 +447,13 @@ ending in the `<A>.<A>` suffix
 is a high-level module
 either exporting or reexporting high-level API beneath itself
 except for the modules
-ending in the `Utl.Intr` suffix.
+ending in the `Utl.Intr` or `Utl.Utl` suffix.
 - The module
 ending in the `<A>.Intr` suffix is a low-level module
 exporting low-level API for the module
-ending in the `<A>.<A>` suffix.
+- The module
+ending in the `Utl.Intr` or `Utl.Utl` suffix is a utility module
+exporting extra utilities.
 
 ### Order
 
@@ -476,7 +481,8 @@ then they are made within a *\<scope\>*.
 
 - A [part of speech](#parts-of-speech) is moved onto its next line
 along with the [conjunction](#parts-of-speech) introducing it.
-- All the [utilities](https://monadosquito.github.io/bem/Bem-Utl-Intr.html) are optional,
+- All the [high-level utilities](https://monadosquito.github.io/bem/Bem-Utl-Utl.html)
+and the [low-level utilities](https://monadosquito.github.io/bem/Bem-Utl-Intr.html) are optional,
 that is,
 all the features work without them.
 - An image or a table has its own two-level heading of its type and number.
