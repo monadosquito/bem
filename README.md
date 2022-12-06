@@ -382,6 +382,10 @@ main = print $ genBlk Btn [Btn_Dark] Search Search_Btn [SearchBtn_Size Big]
 - The example
 prints
 the `"btn btn_dark search__btn search__btn_size_big"` string.
+- The [utility *class generators*](https://monadosquito.github.io/bem/Bem-Utl-Utl.html#t:Gens)
+can be used
+instead of the [full *class generators*](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#t:Gens)
+to avoid redundant modifier passing.
 
 # Contributing
 
@@ -401,6 +405,12 @@ or either the `default.nix`
 or the `shell.nix` script.
 
 # Convention
+
+## Commits
+
+- New [source code groups](#source-code-groups)
+introduced by a new commit
+are placed after old ones.
 
 ## Documentation
 
@@ -518,6 +528,8 @@ all the features work without them.
 - Appendix is denoted with a horizontal line and contains images and tables.
 - The [source code groups](#source-code-groups) are listed
 from the more abstract to the less abstract.
+- `instance`s of a `newtype` or a `data` are defined
+after it and before the next one and ordered in the ASCII order.
 
 # Defined scopes
 

@@ -42,7 +42,7 @@ data Ent (isMod :: Bool) where
          Mod :: Show m => Ent 'False -> m -> Ent 'True
 
 
-adopt :: (Show (b e pm), Show (e m), Show m) => b e pm -> e m -> FullStredElem
+adopt :: FromElem b FullStredElem
 adopt blk elem' = decoredBlk ++ "__" ++ decoredElem
   where
     decoredBlk = decor $ Blk blk
@@ -87,7 +87,7 @@ decor ent
         unprefixedEnt = dropWhile (/= '_') prefixedStredEnt
 
 -- | Generate a class of a block and element with their modifiers.
-genBlk :: (Show (b e m), Show m) => b e m -> [m] -> FromFullElem b Class
+genBlk :: FromFullBlk b (FromFullElem b Class)
 genBlk blk blkMods prntBlk elem' elemMods
     =
     decoredBlk
