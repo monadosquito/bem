@@ -2,6 +2,10 @@
 
 ## Added
 
+- The [partial *class* generators](https://monadosquito.github.io/bem/Bem-Utl-Utl.html) can be used
+instead
+of the [regular ones](https://monadosquito.github.io/bem/Bem-Gen-Gen.html)
+to avoid passing corresponding *modifiers*.
 - Defining an own type to denote absent *elements* can be avoided
 passing the [`NoElem` empty type constructor](https://monadosquito.github.io/bem/Bem-Gen-Gen.html)
 in place a type of them.
