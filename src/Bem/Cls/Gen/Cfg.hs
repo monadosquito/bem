@@ -18,7 +18,7 @@ import Control.Monad.Reader
 -- | the configurable class generators
 data Gens
          =
-         Gens { _genBlk :: forall b . FromFullBlk b (FromFullElem b Class)
+         Gens { _genBlk :: FromBlkElem Class
               , _genElem :: forall b . FromFullElem b Class
               }
 
