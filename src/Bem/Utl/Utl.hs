@@ -25,17 +25,17 @@ data NoMod deriving Show
 
 
 -- | Generate a class of a block without its modifiers and full element.
-genNoBlkModsBlk :: FromBlk b (FromFullElem b Class)
+genNoBlkModsBlk :: FromNoModsBlkElem Class
 genNoBlkModsBlk blk prntBlk elem' elemMods
     =
     genBlk blk [] prntBlk elem' elemMods
 
 -- | Generate a class of a block and element that is without its modifiers.
-genNoElemModsBlk :: FromFullBlk b (FromElem b Class)
+genNoElemModsBlk :: FromBlkNoModsElem Class
 genNoElemModsBlk blk blkMods prntBlk elem' = genBlk blk blkMods prntBlk elem' []
 
 -- | Generate a class of a block and element without any modifiers.
-genNoModsBlk :: FromBlk b (FromElem b Class)
+genNoModsBlk :: FromNoModsBlkNoModsElem Class
 genNoModsBlk blk prntBlk elem' = genBlk blk [] prntBlk elem' []
 
 -- | Generate a class of an element that is without its modifiers.

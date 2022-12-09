@@ -107,7 +107,7 @@ decor ent = do
 Generate a class of a block and element with their modifiers,
 using custom decorations.
 -}
-genBlk :: FromFullBlk b (FromFullElem b (Reader Cfg Class))
+genBlk :: FromBlkElem (Reader Cfg Class)
 genBlk blk blkMods prntBlk elem' elemMods
     = do
     decoredBlk <- str $ Blk blk

@@ -16,7 +16,7 @@ import Control.Monad.Reader
 
 
 -- | Generate a class of a block and element with their modifiers.
-genBlk :: FromFullBlk b (FromFullElem b Class)
+genBlk :: FromBlkElem Class
 genBlk blk blkMods prntBlk elem' elemMods
     =
     runReader (IntrGen.genBlk blk blkMods prntBlk elem' elemMods) defCfg
