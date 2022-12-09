@@ -59,12 +59,6 @@ genNoModsElem prntBlk elem' = Gen.genElem prntBlk elem' []
 -- | Decorate a single block.
 decorSingleton :: (Show (b e m)) => b (e :: Type -> Type) m -> Class
 decorSingleton = (`runReader` defCfg) . (IntrGen.decor . IntrGen.Blk)
-  where
-    defCfg = Cfg { _elemSep = "__"
-                 , _modSep = "_"
-                 , _partSep = "-"
-                 , _partsAreCptled = False
-                 }
 
 -- | Initialise the utility configurable class generators with a configuration.
 init :: Cfg -> Gens
