@@ -357,13 +357,7 @@ import qualified Bem.Cls.Gen.Cfg as Bem
 
 
 gens :: Bem.Gens
-gens = Bem.init Cfg defCfg
-  where
-    defCfg = Cfg { _elemSep = "__"
-                 , _modSep = "_"
-                 , _partSep = "-"
-                 , _partsAreCptled = False
-                 }
+gens = Bem.init defCfg
 ```
 
 # Generate classes
@@ -409,7 +403,7 @@ from a *scheme*.
 ```hs
 import Bem.Scheme
 
-import Bem.Bem
+import qualified Bem.Bem as Bem
 import Bem.Utl.Utl
 
 import Bem.Init
@@ -417,7 +411,8 @@ import Bem.Init
 
 main :: IO ()
 main = do
-    print $ _genBlk gens Btn [Btn_Dark] Search Search_Btn [SearchBtn_Size Big]
+    print $ Bem._genBlk gens
+                Btn [Btn_Dark] Search Search_Btn [SearchBtn_Size Big]
     print $ decorSingleton Root
 ```
 

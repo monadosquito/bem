@@ -4,6 +4,8 @@
 
 ## Added
 
+- The [type synonyms](https://monadosquito.github.io/bem/Bem-Utl-Intr.html) can be used
+to avoid spelling of corresponding *entity* types combinations.
 - The [*class* decorations](https://github.com/monadosquito/bem#table-1) can be configured
 by applying the [`init` function](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html)
 to an appropriate [`Cfg` record](https://monadosquito.github.io/bem/Bem-Cfg-Cfg.html)
