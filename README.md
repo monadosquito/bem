@@ -66,6 +66,7 @@ that it belongs to.
 
 ## Stipulations
 
+- 'Intr' stands for internal/intricate.
 - All the examples are decorated according to [Table 1](#table-1).
 - The decorations in [Table 1](#table-1) are described
 regarding an *entity* as shown,
@@ -430,16 +431,24 @@ but ignoring special characters.
 
 ### Format
 
+- Local [`import`s](#source-code-groups) are separated
+from external [ones](#source-code-groups) with one line.
 - [Source code groups](#source-code-groups) are separated with two lines.
 - [`type`s, `newtype`s, `data`s, top-level-bindings](#source-code-groups) are separated
 with one line.
 
 ### Modules
 
-The module
+- The module
 ending in the `<A>.<A>` suffix
 is a high-level module
-either exporting or reexporting high-level API beneath itself.
+either exporting or reexporting high-level API beneath itself
+except for the modules
+ending in the `Utl.Intr` suffix.
+- The module
+ending in the `<A>.Intr` suffix is a low-level module
+exporting low-level API for the module
+ending in the `<A>.<A>` suffix.
 
 ### Order
 
@@ -467,6 +476,9 @@ then they are made within a *\<scope\>*.
 
 - A [part of speech](#parts-of-speech) is moved onto its next line
 along with the [conjunction](#parts-of-speech) introducing it.
+- All the [utilities](https://monadosquito.github.io/bem/Bem-Utl-Intr.html) are optional,
+that is,
+all the features work without them.
 - An image or a table has its own two-level heading of its type and number.
 - Appendix, denoted with a horizontal line, contains images and tables.
 - The [source code groups](#source-code-groups) are listed
@@ -475,6 +487,7 @@ from the more abstract to the less abstract.
 # Defined scopes
 
 - cls
+- utl
 
 ---
 

@@ -11,18 +11,13 @@ module Bem.Cls.Gen.Gen
            ) where
 
 
+import Bem.Utl.Intr
+
 import Data.Char
 import Data.Kind
 import Data.List
 import Data.List.Split
 
-
-type Class = String
-
-type FromFullElem (b :: (Type -> Type) -> Type -> Type) r
-         = forall e m pm
-         . (Show (b e pm), Show (e m), Show m)
-         => b e pm -> e m -> [m] -> r
 
 type FullStredElem = String
 
