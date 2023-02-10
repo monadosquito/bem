@@ -227,8 +227,10 @@ to the `true` value.
 
 1. Define a *scheme*. ([?](#define-scheme))
 2. Generate *classes*
-with the [default decorations](#table-1) ([?](#configure-class-generators))
-    1. or configure the [*class generators*](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#t:Gens) ([?](#configure-class-generators))
+with the [default decorations](#table-1) ([?](#generate-classes-with-default-decorations))
+    1. or configure ([?](#configure-class-generators))
+        - either the [regular *class generators*](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#t:Gens)
+        - or the [utility `Gens` *class generators*](https://monadosquito.github.io/bem/Bem-Utl-Utl.html#t:Gens)
     2. and generate *classes* with [custom decorations](#table-1).
     ([?](#generate-classes-with-custom-decorations))
 
@@ -360,6 +362,14 @@ gens :: Bem.Gens
 gens = Bem.init defCfg
 ```
 
+## Hints
+
+- In order that the resulting [`Gens` record](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#t:Gens) contains the [utility *class generators*](https://monadosquito.github.io/bem/Bem-Utl-Utl.html#v:init),
+make it
+using the [utility `init` function](https://monadosquito.github.io/bem/Bem-Utl-Utl.html#v:init)
+in place
+of the [regular one](https://monadosquito.github.io/bem/Bem-Gen-Cfg.html).
+
 # Generate classes
 
 ## Using default decorations
@@ -419,6 +429,9 @@ main = do
 ## Notes
 
 - The example prints the `"btn btn_dark search__btn search__btn_size_big"` string.
+- The [utility *class generators*](https://monadosquito.github.io/bem/Bem-Utl-Utl.html#t:Gens) can be used
+instead of the [regular *class generators*](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#t:Gens)
+to avoid redundant modifier passing.
 
 ## Hints
 

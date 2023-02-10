@@ -4,6 +4,11 @@
 
 ## Added
 
+- The [utility `Gens` record](https://monadosquito.github.io/bem/Bem-Utl-Utl.html)
+and the [utility `init` function](https://monadosquito.github.io/bem/Bem-Utl-Utl.html) can be used
+in place of the regular ones
+in order that the [utility configurable *class* generators](https://monadosquito.github.io/bem/Bem-Utl-Utl.html) are available
+inside the [former](https://monadosquito.github.io/bem/Bem-Utl-Utl.html).
 - The [type synonyms](https://monadosquito.github.io/bem/Bem-Utl-Intr.html) can be used
 to avoid spelling of corresponding *entity* types combinations.
 - The [*class* decorations](https://github.com/monadosquito/bem#table-1) can be configured
