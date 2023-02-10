@@ -26,7 +26,9 @@ and optional *modifiers*.
 - A **class** is a generated string
 of a combination
 of some decorated *entities*.
-- A **class generator** is a configured [`Gens` field-function](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#t:Gens),
+- A **class generator** is
+a configured [regular `Gens` field-function](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#t:Gens)
+or a [utility `Gens` field-function](https://monadosquito.github.io/bem/Bem-Utl-Utl.html#t:Gens),
 using custom decorations,
 or a [function](https://monadosquito.github.io/bem/Bem-Cls-Gen-Gen.html#v:genBlk),
 using the default decorations,
@@ -257,8 +259,10 @@ to the `true` value.
 
 1. Define a *scheme*. ([?](#define-scheme))
 2. Generate *classes*
-with the [default decorations](#table-1) ([?](#configure-class-generators))
-    1. or configure the [*class generators*](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#t:Gens) ([?](#configure-class-generators))
+with the [default decorations](#table-1) ([?](#generate-classes-with-default-decorations))
+    1. or configure ([?](#configure-class-generators))
+        - either the [regular *class generators*](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#t:Gens)
+        - or the [utility `Gens` *class generators*](https://monadosquito.github.io/bem/Bem-Utl-Utl.html#t:Gens)
     2. and generate *classes* with [custom decorations](#table-1).
     ([?](#generate-classes-with-custom-decorations))
 
@@ -399,6 +403,14 @@ gens = CfgGen.init CfgGen.Cfg { CfgGen._elemSep = "__"
                               }
 ```
 
+## Hints
+
+- In order that the resulting [`Gens` record](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#t:Gens) contains the [utility *class generators*](https://monadosquito.github.io/bem/Bem-Utl-Utl.html#v:init),
+make it
+using the [utility `init` function](https://monadosquito.github.io/bem/Bem-Utl-Utl.html#v:init)
+in place
+of the [regular one](https://monadosquito.github.io/bem/Bem-Gen-Cfg.html).
+
 # Generate classes with default decorations
 
 Apply a corresponding [*class generator*](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#t:Gens)
@@ -425,6 +437,10 @@ main = print $ genBlk Btn [Btn_Dark] Search Search_Btn [SearchBtn_Size Big]
 - The example
 prints
 the `"btn btn_dark search__btn search__btn_size_big"` string.
+- The [utility *class generators*](https://monadosquito.github.io/bem/Bem-Utl-Utl.html)
+can be used
+instead of the [regular *class generators*](https://monadosquito.github.io/bem/Bem-Gen-Cfg.html)
+to avoid redundant modifier passing.
 
 # Generate classes with custom decorations
 
@@ -459,7 +475,7 @@ prints
 the `"btn btn_dark search__btn search__btn_size_big"` string.
 - The [utility *class generators*](https://monadosquito.github.io/bem/Bem-Utl-Utl.html#t:Gens)
 can be used
-instead of the [full *class generators*](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#t:Gens)
+instead of the [regular *class generators*](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#t:Gens)
 to avoid redundant modifier passing.
 
 ## Hints
