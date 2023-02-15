@@ -581,6 +581,14 @@ ending in the `<A>.<A>` suffix
 in the sense of its own purpose.
 - The module ending in the `<A>.Intr` suffix exports low-level API.
 - The module ending in the `Utl.Intr`/`Utl.Utl` suffix exports extra utilities.
+- If an `import` of the local low-level module
+ending in the `<A>.Intr` suffix
+introduces definition conflicts,
+then it is `qualified as Intr<A>`.
+- If an `import` of the local high-level module
+ending in the `<A>` suffix
+introduces definition conflicts,
+then it is `qualified as <A>`.
 
 #### Haskell module extending example
 
