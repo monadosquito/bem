@@ -19,19 +19,8 @@ import Control.Monad.Reader
 genBlkElem :: FromFullBlk b (FromFullElem b Class)
 genBlkElem blk blkMods prntBlk elem' elemMods
     =
-    decoredBlk
-    ++ (if null decoredBlkMods then "" else " ")
-    ++ unwords decoredBlkMods
-    ++ " "
-    ++ decoredFullElem
+    runReader (IntrGen.genBlk blk blkMods prntBlk elem' elemMods) defCfg
   where
-    decoredBlk = runReader (IntrGen.str $ IntrGen.Blk blk) defCfg
-    decoredBlkMods
-        =
-        runReader
-            (mapM (IntrGen.str . IntrGen.Mod (IntrGen.Blk blk)) blkMods)
-            defCfg
-    decoredFullElem = genElem prntBlk elem' elemMods
     defCfg = Cfg { _elemSep = "__"
                  , _modSep = "_"
                  , _partSep = "-"
@@ -42,19 +31,8 @@ genBlkElem blk blkMods prntBlk elem' elemMods
 genElem :: FromFullElem b Class
 genElem prntBlk elem' elemMods
     =
-    adoptedElem
-    ++ (if null decoredElemMods then "" else " ")
-    ++ unwords decoredElemMods
+    runReader (IntrGen.genElem prntBlk elem' elemMods) defCfg
   where
-    adoptedElem = runReader (IntrGen.str $ IntrGen.Elem prntBlk elem') defCfg
-    decoredElemMods
-        =
-        runReader
-            (mapM
-                 (IntrGen.str . IntrGen.Mod (IntrGen.Elem prntBlk elem'))
-                 elemMods
-            )
-            defCfg
     defCfg = Cfg { _elemSep = "__"
                  , _modSep = "_"
                  , _partSep = "-"

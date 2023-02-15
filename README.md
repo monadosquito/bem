@@ -545,6 +545,14 @@ exporting low-level API for the module
 - The module
 ending in the `Utl.Intr` or `Utl.Utl` suffix is a utility module
 exporting extra utilities.
+- If an `import` of the local low-level module
+ending in the `<A>.Intr` suffix
+introduces definition conflicts,
+then it is `qualified as Intr<A>`.
+- If an `import` of the local high-level module
+ending in the `<A>` suffix
+introduces definition conflicts,
+then it is `qualified as <A>`.
 
 ### Order
 
