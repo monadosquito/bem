@@ -4,8 +4,9 @@ in
 {
     pkgs ? pin.nixpkgs,
     withGhcjs ? false,
+    misoPkgs ? pin.misoNixpkgs,
 }
 :
 if withGhcjs
-then pkgs.haskell.packages.ghcjs.callCabal2nix "bem" ./. {}
-else pkgs.haskell.packages.ghc864.callCabal2nix "bem" ./. {}
+then misoPkgs.haskell.packages.ghcjs.callCabal2nix "bem" ./. {}
+else misoPkgs.haskell.packages.ghc864.callCabal2nix "bem" ./. {}

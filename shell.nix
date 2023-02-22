@@ -3,12 +3,22 @@ let
 in
 {
     pkgs ? pin.nixpkgs,
+    misoPkgs ? pin.misoNixpkgs,
 }
 :
 pkgs.mkShell
     {
-        buildInputs = [pkgs.cabal-install];
+        buildInputs
+            =
+            [
+                (pkgs.writeShellScriptBin
+                     "watch"
+                     (pkgs.lib.readFile ./script/watch.sh)
+                )
+                misoPkgs.cabal-install
+                pkgs.ghcid
+            ];
         inputsFrom
             =
-            [(pkgs.haskell.packages.ghc864.callCabal2nix "bem" ./. {}).env];
+            [(misoPkgs.haskell.packages.ghc864.callCabal2nix "bem" ./. {}).env];
     }
