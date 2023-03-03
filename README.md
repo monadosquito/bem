@@ -338,16 +338,13 @@ by a *scheme*.
 ```hs
 import Bem.Scheme
 
-import qualified Bem.Bem as Bem
+import Bem.Bem
 import Bem.Utl.Utl
-
-import Bem.Init
 
 
 main :: IO ()
 main = do
-    print $ Bem._genBlk gens
-                Btn [Btn_Dark] Search Search_Btn [SearchBtn_Size Big]
+    print $ genBlk Btn [Btn_Dark] Search Search_Btn [SearchBtn_Size Big]
     print $ decorSingleton Root
 ```
 
@@ -360,6 +357,11 @@ the `"btn btn_dark search__btn search__btn_size_big"` string.
 can be used
 instead of the [full *class generators*](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#t:Gens)
 to avoid redundant modifier passing.
+
+## Hints
+
+- The [`decorSingleton` function](https://monadosquito.github.io/bem/Bem-Utl-Utl.html#v:decorSingleton) can be used
+to generate a *class* for the topmost BEM block to avoid passing it as a string.
 
 # Contributing
 
