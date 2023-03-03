@@ -387,6 +387,11 @@ can be used
 instead of the [full *class generators*](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html#t:Gens)
 to avoid redundant modifier passing.
 
+## Hints
+
+- The [`decorRoot` function](https://monadosquito.github.io/bem/Bem-Utl-Utl.html#v:decorRoot) can be used
+to generate a *class* for the topmost BEM block to avoid passing it as a string.
+
 # Contributing
 
 ## Build

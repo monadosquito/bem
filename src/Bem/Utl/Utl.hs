@@ -1,5 +1,6 @@
 {-# LANGUAGE EmptyDataDeriving #-}
 {-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE KindSignatures #-}
 
 
 -- | the high-level extra utilities
@@ -8,6 +9,10 @@ module Bem.Utl.Utl where
 
 import Bem.Cls.Gen.Gen
 import Bem.Utl.Intr
+
+import Data.Kind
+
+import Bem.Cls.Gen.Intr
 
 
 -- | Denote absent elements.
@@ -34,3 +39,7 @@ genNoModsBlk blk prntBlk elem' = genBlk blk [] prntBlk elem' []
 -- | Generate a class of an element that is without its modifiers.
 genNoModsElem :: FromElem b Class
 genNoModsElem prntBlk elem' = genElem prntBlk elem' []
+
+-- | Decorate a single block.
+decorRoot :: (Show (b e m)) => b (e :: Type -> Type) m -> Class
+decorRoot = decor . Blk
