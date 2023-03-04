@@ -8,6 +8,8 @@ module Bem.Cls.Gen.Intr
            ( Ent (..)
            , decor
            , str
+           , FullStredEnt
+           , StredEnt
            ) where
 
 
