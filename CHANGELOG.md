@@ -1,5 +1,7 @@
 # [Unreleased]
 
+# [1.0.0] - 2023-07-01
+
 ## Added
 
 - The [partial *class* generators](https://monadosquito.github.io/bem/Bem-Utl-Utl.html) can be used
