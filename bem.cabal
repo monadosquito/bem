@@ -8,7 +8,7 @@ license: MIT
 maintainer: monadosquito@gmail.com
 name: bem
 synopsis: typed BEM
-version: 1.0.0
+version: 1.1.0
 
 library
     build-depends: base, mtl, split

@@ -26,6 +26,9 @@ and assigning the resulting [`Gens` record](https://monadosquito.github.io/bem/B
 of configured [*class* generators](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html) a name
 in order that the [*class* generators](https://monadosquito.github.io/bem/Bem-Cls-Gen-Cfg.html) can be referenced
 with it.
+
+# [1.0.0] - 2023-07-01
+
 - The [partial *class* generators](https://monadosquito.github.io/bem/Bem-Utl-Utl.html) can be used
 instead
 of the [regular ones](https://monadosquito.github.io/bem/Bem-Gen-Gen.html)
